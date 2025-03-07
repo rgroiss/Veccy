@@ -1,3 +1,5 @@
+package fh.hagenberg.gop.veccy;
+
 public class Point {
     int x;
     int y;
