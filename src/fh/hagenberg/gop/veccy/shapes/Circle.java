@@ -1,4 +1,4 @@
-package fh.hagenberg.gop.veccy;
+package fh.hagenberg.gop.veccy.shapes;
 
 public class Circle {
     int radius;
@@ -7,6 +7,10 @@ public class Circle {
     public Circle(int radius, Point center) {
         this.radius = radius;
         this.center = center;
+    }
+
+    public int getArea() {
+        return (int) (Math.PI * radius * radius);
     }
 
     public Rectangle getBoundingBox() {

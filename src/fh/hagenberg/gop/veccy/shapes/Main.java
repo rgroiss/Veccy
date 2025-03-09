@@ -1,4 +1,4 @@
-package fh.hagenberg.gop.veccy;
+package fh.hagenberg.gop.veccy.shapes;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
