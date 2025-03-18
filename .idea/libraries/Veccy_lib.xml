@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Veccy-lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/Veccy-lib.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
