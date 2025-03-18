@@ -1,9 +1,15 @@
 package fh.hagenberg.gop.veccy.shapes;
 
-public class Line {
+import at.fhhgb.mtd.gop.veccy.shapes.DrawableShape;
+import javafx.scene.canvas.GraphicsContext;
+
+import java.awt.*;
+
+public class Line implements DrawableShape {
     Point start;
     Point end;
     static final int MIN_SIZE = 1;
+    private Color strokeColor = Color.BLACK;
 
     public Line(Point start, Point end) {
         this.start = start;
@@ -23,4 +29,17 @@ public class Line {
         return new Rectangle(new Point(minX, minY), new Point(maxX, maxY));
     }
 
+
+    public Color getStrokeColor(){
+        return this.strokeColor;
+    }
+
+    public void setStrokeColor(Color strokeColor){
+        this.strokeColor = strokeColor;
+    }
+
+    @Override
+    public void draw(GraphicsContext graphicsContext) {
+
+    }
 }

@@ -1,13 +1,32 @@
 package fh.hagenberg.gop.veccy.shapes;
 
-public class Rectangle {
+import at.fhhgb.mtd.gop.veccy.shapes.DrawableShape;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
+
+public class Rectangle implements DrawableShape {
     Point a;
     Point b;
+    private Color fillColor = Color.BLACK;
+    private Color strokeColor = Color.BLACK;
+    int width;
+    int height;
 
 
     public Rectangle(Point a, Point b) {
         this.a = a;
         this.b = b;
+        this.width = Math.max(a.x, b.x) - Math.min(a.x, b.x);
+        this.height = Math.max(a.y, b.y) - Math.min(a.y, b.y);
+    }
+
+    public Rectangle(int x1, int x2, int y1, int y2) {
+        this.a = new Point(x1, y1);
+        this.b = new Point(x2, y2);
+        this.width = Math.max(a.x, b.x) - Math.min(a.x, b.x);
+        this.height = Math.max(a.y, b.y) - Math.min(a.y, b.y);
+
     }
 
     public int area() {
@@ -45,5 +64,29 @@ public class Rectangle {
         }
 
         return true;
+    }
+
+    public Color getFillColor() {
+        return this.fillColor;
+    }
+
+    public void setFillColor(Color fillColor) {
+        this.fillColor = fillColor;
+    }
+
+    public Color getStrokeColor(){
+        return this.strokeColor;
+    }
+
+    public void setStrokeColor(Color strokeColor){
+        this.strokeColor = strokeColor;
+    }
+
+    @Override
+    public void draw(GraphicsContext graphicsContext) {
+        graphicsContext.setFill(this.fillColor);
+        graphicsContext.setStroke(this.strokeColor);
+        graphicsContext.fillRect(this.a.x, this.a.y, this.b.x, this.b.y);
+        graphicsContext.strokeRect(this.a.x, this.a.y, this.b.x, this.b.y);
     }
 }
