@@ -10,8 +10,12 @@ public class Vector3 {
 
     // Initialisiert this.values mit dem Parameter values (kopieren Sie die Werte!)
     public Vector3(double[] values) {
-        this.values = new double[values.length];
-        System.arraycopy(values, 0, this.values, 0, values.length);
+        if(values.length != 3){
+            throw new IllegalArgumentException("Vector3 needs exactly 3 values");
+        }else{
+            this.values = new double[values.length];
+            System.arraycopy(values, 0, this.values, 0, values.length);
+        }
     }
 
     // Initialisiert this.values mit den values aus dem Parameter vector
@@ -23,5 +27,11 @@ public class Vector3 {
     // Returniert die Instanzvariable values
     public double[] getValues() {
         return this.values;
+    }
+
+    public void setValues(double[] values) {
+        for (int i = 0; i < values.length; i++) {
+            this.values[i] = values[i];
+        }
     }
 }
