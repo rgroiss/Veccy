@@ -2,8 +2,7 @@ package fh.hagenberg.gop.veccy.shapes;
 
 import at.fhhgb.mtd.gop.veccy.shapes.DrawableShape;
 import javafx.scene.canvas.GraphicsContext;
-
-import java.awt.*;
+import javafx.scene.paint.Color;
 
 public class Circle implements DrawableShape {
     int radius;
@@ -21,8 +20,8 @@ public class Circle implements DrawableShape {
     }
 
     public Rectangle getBoundingBox() {
-        return new Rectangle(new Point(center.x-radius, center.y-radius),
-                new Point(center.x+radius, center.y+radius));
+        return new Rectangle(new Point(center.getX()-radius, center.getY()-radius),
+                new Point(center.getX()+radius, center.getY()+radius));
     }
 
     public Color getFillColor() {
@@ -43,6 +42,10 @@ public class Circle implements DrawableShape {
 
     @Override
     public void draw(GraphicsContext graphicsContext) {
-
+        Rectangle circle = getBoundingBox();
+        graphicsContext.setFill(this.fillColor);
+        graphicsContext.setStroke(this.strokeColor);
+        graphicsContext.fillOval(circle.a.getX(), circle.a.getY(), circle.getWidth(), circle.getHeight());
+        graphicsContext.strokeOval(circle.a.getX(), circle.a.getY(), circle.getWidth(), circle.getHeight());
     }
 }

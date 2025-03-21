@@ -17,27 +17,26 @@ public class Rectangle implements DrawableShape {
     public Rectangle(Point a, Point b) {
         this.a = a;
         this.b = b;
-        this.width = Math.max(a.x, b.x) - Math.min(a.x, b.x);
-        this.height = Math.max(a.y, b.y) - Math.min(a.y, b.y);
+        this.width = Math.max(a.getX(), b.getX()) - Math.min(a.getX(), b.getX());
+        this.height = Math.max(a.getY(), b.getY()) - Math.min(a.getY(), b.getY());
     }
 
-    public Rectangle(int x1, int x2, int y1, int y2) {
-        this.a = new Point(x1, y1);
-        this.b = new Point(x2, y2);
-        this.width = Math.max(a.x, b.x) - Math.min(a.x, b.x);
-        this.height = Math.max(a.y, b.y) - Math.min(a.y, b.y);
-
+    public Rectangle(int x, int y, int width, int height) {
+        this.a = new Point(x, y);
+        this.width = width;
+        this.height = height;
+        this.b = new Point(x+width, y+height);
     }
 
     public int area() {
-        return (b.x - a.x) * (b.y - a.y);
+        return (b.getX() - a.getX()) * (b.getY() - a.getY());
     }
 
-    public int height() {
-        return Math.abs(b.y - a.y);
+    public int getHeight() {
+        return Math.abs(b.getY() - a.getY());
     }
-    public int width() {
-        return Math.abs(b.x - a.x);
+    public int getWidth() {
+        return Math.abs(b.getX() - a.getX());
     }
 
     public Rectangle boundingBox(){
@@ -45,15 +44,15 @@ public class Rectangle implements DrawableShape {
     }
 
     public boolean isOverlapping(Rectangle other) {
-        int thisLeft = Math.min(a.x, b.x);
-        int thisRight = Math.max(a.x, b.x);
-        int thisBottom = Math.max(a.y, b.y);//reverse y, because graphics coordinate system
-        int thisTop = Math.min(a.y, b.y);
+        int thisLeft = Math.min(a.getX(), b.getX());
+        int thisRight = Math.max(a.getX(), b.getX());
+        int thisBottom = Math.max(a.getY(), b.getY());//reverse y, because graphics coordinate system
+        int thisTop = Math.min(a.getY(), b.getY());
 
-        int otherLeft = Math.min(other.a.x, other.b.x);
-        int otherRight = Math.max(other.a.x, other.b.x);
-        int otherBottom = Math.max(other.a.y, other.b.y);
-        int otherTop = Math.min(other.a.y, other.b.y);
+        int otherLeft = Math.min(other.a.getX(), other.b.getX());
+        int otherRight = Math.max(other.a.getX(), other.b.getX());
+        int otherBottom = Math.max(other.a.getY(), other.b.getY());
+        int otherTop = Math.min(other.a.getY(), other.b.getY());
 
 
         if (thisLeft >= otherRight || otherLeft >= thisRight) {
@@ -86,7 +85,7 @@ public class Rectangle implements DrawableShape {
     public void draw(GraphicsContext graphicsContext) {
         graphicsContext.setFill(this.fillColor);
         graphicsContext.setStroke(this.strokeColor);
-        graphicsContext.fillRect(this.a.x, this.a.y, this.b.x, this.b.y);
-        graphicsContext.strokeRect(this.a.x, this.a.y, this.b.x, this.b.y);
+        graphicsContext.fillRect(this.a.getX(), this.a.getY(), this.getWidth(), this.getHeight());
+        graphicsContext.strokeRect(this.a.getX(), this.a.getY(), this.getWidth(), this.getHeight());
     }
 }
