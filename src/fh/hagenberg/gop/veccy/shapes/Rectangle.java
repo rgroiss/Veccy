@@ -10,21 +10,15 @@ public class Rectangle implements DrawableShape {
     Point b;
     private Color fillColor = Color.BLACK;
     private Color strokeColor = Color.BLACK;
-    private int width;
-    private int height;
 
 
     public Rectangle(Point a, Point b) {
         this.a = a;
         this.b = b;
-        this.width = Math.max(a.getX(), b.getX()) - Math.min(a.getX(), b.getX());
-        this.height = Math.max(a.getY(), b.getY()) - Math.min(a.getY(), b.getY());
     }
 
     public Rectangle(int x, int y, int width, int height) {
         this.a = new Point(x, y);
-        //this.width = width;
-        //this.height = height;
         this.b = new Point(x+width, y+height);
     }
 
