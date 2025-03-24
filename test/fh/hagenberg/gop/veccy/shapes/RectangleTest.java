@@ -26,20 +26,20 @@ public class RectangleTest {
         Rectangle box3 = rect3.boundingBox();
 
         // Assert that the bounding box is the same as the original rectangle
-        assertEquals(rect1.a.x, box1.a.x);
-        assertEquals(rect1.a.y, box1.a.y);
-        assertEquals(rect1.b.x, box1.b.x);
-        assertEquals(rect1.b.y, box1.b.y);
+        assertEquals(rect1.a.getX(), box1.a.getX());
+        assertEquals(rect1.a.getY(), box1.a.getY());
+        assertEquals(rect1.b.getX(), box1.b.getX());
+        assertEquals(rect1.b.getY(), box1.b.getY());
 
-        assertEquals(rect2.a.x, box2.a.x);
-        assertEquals(rect2.a.y, box2.a.y);
-        assertEquals(rect2.b.x, box2.b.x);
-        assertEquals(rect2.b.y, box2.b.y);
+        assertEquals(rect2.a.getX(), box2.a.getX());
+        assertEquals(rect2.a.getY(), box2.a.getY());
+        assertEquals(rect2.b.getX(), box2.b.getX());
+        assertEquals(rect2.b.getY(), box2.b.getY());
 
-        assertEquals(rect3.a.x, box3.a.x);
-        assertEquals(rect3.a.y, box3.a.y);
-        assertEquals(rect3.b.x, box3.b.x);
-        assertEquals(rect3.b.y, box3.b.y);
+        assertEquals(rect3.a.getX(), box3.a.getX());
+        assertEquals(rect3.a.getY(), box3.a.getY());
+        assertEquals(rect3.b.getX(), box3.b.getX());
+        assertEquals(rect3.b.getY(), box3.b.getY());
     }
 
 

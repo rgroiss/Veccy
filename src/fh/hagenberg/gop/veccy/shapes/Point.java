@@ -42,6 +42,6 @@ public class Point implements DrawableShape {
     public void draw(GraphicsContext graphicsContext) {
         graphicsContext.setFill(this.color);
         graphicsContext.setStroke(this.color);
-        graphicsContext.fillRect(this.x, this.y,5, 5);//set the size to 5 for visibility
+        graphicsContext.fillRect(this.x, this.y,3, 3);//set the size to 3 for visibility
     }
 }

@@ -10,8 +10,8 @@ public class Rectangle implements DrawableShape {
     Point b;
     private Color fillColor = Color.BLACK;
     private Color strokeColor = Color.BLACK;
-    int width;
-    int height;
+    private int width;
+    private int height;
 
 
     public Rectangle(Point a, Point b) {
@@ -23,8 +23,8 @@ public class Rectangle implements DrawableShape {
 
     public Rectangle(int x, int y, int width, int height) {
         this.a = new Point(x, y);
-        this.width = width;
-        this.height = height;
+        //this.width = width;
+        //this.height = height;
         this.b = new Point(x+width, y+height);
     }
 

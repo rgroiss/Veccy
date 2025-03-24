@@ -28,15 +28,15 @@ public class LineTest {
         Rectangle expected4 = new Rectangle(new Point(3, 3), new Point(4, 4));  // Ensuring min size
 
         // Check expected bounding boxes
-        assertEquals(expected1.a.x, r1.a.x);
-        assertEquals(expected2.a.y, r2.a.y);
-        assertEquals(expected3.b.x, r3.b.x);
-        assertEquals(expected4.b.y, r4.b.y);
+        assertEquals(expected1.a.getX(), r1.a.getX());
+        assertEquals(expected2.a.getY(), r2.a.getY());
+        assertEquals(expected3.b.getX(), r3.b.getX());
+        assertEquals(expected4.b.getY(), r4.b.getY());
 
-        assertNotEquals(expected1.a.x, r2.a.x);
-        assertNotEquals(expected2.a.y, r1.a.y);
-        assertNotEquals(expected3.b.x, r4.b.x);
-        assertNotEquals(expected4.b.y, r3.b.x);
+        assertNotEquals(expected1.a.getX(), r2.a.getX());
+        assertNotEquals(expected2.a.getY(), r1.a.getY());
+        assertNotEquals(expected3.b.getX(), r4.b.getX());
+        assertNotEquals(expected4.b.getY(), r3.b.getX());
     }
 
 
