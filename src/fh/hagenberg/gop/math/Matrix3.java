@@ -80,6 +80,8 @@ public class Matrix3 {
                     this.values[i][j] = values[i][j];
                 }
             }
+        }else {
+            throw new IllegalArgumentException("Matrix does not have 3x3 values");
         }
 
     }
