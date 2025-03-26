@@ -2,6 +2,11 @@ package fh.hagenberg.gop.veccy;
 
 import at.fhhgb.mtd.gop.veccy.VeccyGUI;
 import at.fhhgb.mtd.gop.veccy.model.CanvasModel;
+import at.fhhgb.mtd.gop.veccy.model.NamedFeature;
+import fh.hagenberg.gop.features.CircleFeature;
+import fh.hagenberg.gop.features.LineFeature;
+import fh.hagenberg.gop.features.PointFeature;
+import fh.hagenberg.gop.features.RectangleFeature;
 import fh.hagenberg.gop.veccy.shapes.Circle;
 import fh.hagenberg.gop.veccy.shapes.Line;
 import fh.hagenberg.gop.veccy.shapes.Point;
@@ -53,6 +58,15 @@ public class Veccy extends Application {
         model.addShape(l1);
         model.addShape(p1);
         */
+
+        NamedFeature rf = new RectangleFeature(model);
+        NamedFeature cf = new CircleFeature(model);
+        NamedFeature lf = new LineFeature(model);
+        NamedFeature pf = new PointFeature(model);
+        model.addFeature(rf);
+        model.addFeature(cf);
+        model.addFeature(lf);
+        model.addFeature(pf);
     }
 
     private void drawDotsAndLines(CanvasModel model) {

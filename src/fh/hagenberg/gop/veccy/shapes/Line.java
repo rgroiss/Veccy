@@ -7,8 +7,8 @@ import javafx.scene.paint.Color;
 import java.awt.*;
 
 public class Line implements DrawableShape {
-    Point start;
-    Point end;
+    private Point start;
+    private Point end;
     static final int MIN_SIZE = 1;
     private Color strokeColor = Color.BLACK;
 
@@ -30,6 +30,21 @@ public class Line implements DrawableShape {
         return new Rectangle(new Point(minX, minY), new Point(maxX, maxY));
     }
 
+    public Point getStart() {
+        return start;
+    }
+
+    public Point getEnd() {
+        return end;
+    }
+
+    public void setStart(Point start) {
+        this.start = start;
+    }
+
+    public void setEnd(Point end) {
+        this.end = end;
+    }
 
     public Color getStrokeColor(){
         return this.strokeColor;

@@ -5,8 +5,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class Circle implements DrawableShape {
-    int radius;
-    Point center;
+    private int radius;
+    private Point center;
     private Color fillColor = Color.BLACK;
     private Color strokeColor = Color.WHITE;
 
@@ -38,6 +38,22 @@ public class Circle implements DrawableShape {
 
     public void setStrokeColor(Color strokeColor){
         this.strokeColor = strokeColor;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
+
+    public int getRadius() {
+        return this.radius;
+    }
+
+    public Point getCenter() {
+        return this.center;
+    }
+
+    public void setCenter(Point center) {
+        this.center = center;
     }
 
     @Override
