@@ -47,6 +47,11 @@ public class PointFeature implements NamedFeature {
 
     @Override
     public void onMouseDrag(int x, int y) {
-
+        /* optional - draw lots of points when dragging
+        this.currentPoint = new Point(x, y);
+        this.currentPoint.setColor(cv.getCurrentFillColor());
+        this.cv.addShape(this.currentPoint);
+        this.currentPoint = null;
+         */
     }
 }
