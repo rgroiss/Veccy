@@ -34,7 +34,7 @@ public class PointFeature implements NamedFeature {
     @Override
     public void onMouseClick(int x, int y) {
         if(this.selected){
-            System.out.println("dragged Point " + x + " " + y);
+            System.out.println("clicked Point " + x + " " + y);
             if(this.currentPoint == null){
                 // TODO start DRAWING
                 this.currentPoint = new Point(x, y);
