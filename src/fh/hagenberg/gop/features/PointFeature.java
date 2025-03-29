@@ -34,8 +34,12 @@ public class PointFeature implements NamedFeature {
     @Override
     public void onMouseClick(int x, int y) {
         if(this.selected){
-            System.out.println("clicked on Point " + x + " " + y);
-            if(this.currentPoint != null){
+            System.out.println("dragged Point " + x + " " + y);
+            if(this.currentPoint == null){
+                // TODO start DRAWING
+                this.currentPoint = new Point(x, y);
+                this.currentPoint.setColor(cv.getCurrentFillColor());
+                this.cv.addShape(this.currentPoint);
                 this.currentPoint = null;
             }
         }
@@ -43,14 +47,6 @@ public class PointFeature implements NamedFeature {
 
     @Override
     public void onMouseDrag(int x, int y) {
-        if(this.selected){
-            System.out.println("dragged Point " + x + " " + y);
-            if(this.currentPoint == null){
-                // TODO start DRAWING
-                this.currentPoint = new Point(x, y);
-                this.currentPoint.setColor(cv.getCurrentFillColor());
-                this.cv.addShape(this.currentPoint);
-            }
-        }
+
     }
 }
