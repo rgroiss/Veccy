@@ -38,7 +38,7 @@ public class PointFeature implements NamedFeature {
             if(this.currentPoint == null){
                 // TODO start DRAWING
                 this.currentPoint = new Point(x, y);
-                this.currentPoint.setColor(cv.getCurrentFillColor());
+                this.currentPoint.setFillColor(cv.getCurrentFillColor());
                 this.cv.addShape(this.currentPoint);
                 this.currentPoint = null;
             }

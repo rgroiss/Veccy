@@ -1,5 +1,7 @@
 package fh.hagenberg.gop.math;
 
+import fh.hagenberg.gop.veccy.shapes.Point;
+
 public class Vector3 {
     private double[] values;
 
@@ -16,6 +18,30 @@ public class Vector3 {
             this.values = new double[values.length];
             System.arraycopy(values, 0, this.values, 0, values.length);
         }
+    }
+
+    public Vector3(double x, double y, double z) {
+        this(new double[]{x, y, z});
+    }
+
+    public Vector3(Point position){
+        this(new double[]{position.getX(), position.getY(), 1.0});
+    }
+
+    public double getX() {
+        return values[0];
+    }
+
+    public double getY() {
+        return values[1];
+    }
+
+    public void setX(double x) {
+        this.values[0] = x;
+    }
+
+    public void setY(double y) {
+        this.values[1] = y;
     }
 
     // Initialisiert this.values mit den values aus dem Parameter vector

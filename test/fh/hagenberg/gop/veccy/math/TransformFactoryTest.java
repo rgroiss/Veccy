@@ -62,7 +62,6 @@ public class TransformFactoryTest {
                 {1,  0, 1},
                 {0,  0, 1}
         });
-
         assertMatrixEquals(expected.getValues(), transformed.getValues(), 1e-6);
     }
 

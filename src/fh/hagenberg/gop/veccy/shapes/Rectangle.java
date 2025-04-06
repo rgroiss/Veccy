@@ -1,66 +1,62 @@
 package fh.hagenberg.gop.veccy.shapes;
 
 import at.fhhgb.mtd.gop.veccy.shapes.DrawableShape;
+import fh.hagenberg.gop.math.Vector3;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 
-public class Rectangle implements DrawableShape {
-    Point a;
-    Point b;
-    private Color fillColor = Color.BLACK;
-    private Color strokeColor = Color.BLACK;
+public class Rectangle extends Shape {
+    private Vector3 b;
 
 
     public Rectangle(Point a, Point b) {
-        this.a = a;
-        this.b = b;
+        super(a);
+        this.b = new Vector3(new double[]{b.getX(), b.getY(), 1});
     }
 
-    public Rectangle(int x, int y, int width, int height) {
-        this.a = new Point(x, y);
-        this.b = new Point(x+width, y+height);
+    public Rectangle(Vector3 a, Vector3 b) {
+        super(a);
+        this.b = new Vector3(b);
     }
 
-    public int area() {
-        return (b.getX() - a.getX()) * (b.getY() - a.getY());
+    public Rectangle(int x, int y, double width, double height) {
+        super(x, y);
+        this.b = new Vector3(new double[]{x+width, y+height, 1});
     }
 
-    public Point getA() {
-        return this.a;
+    public double area() {return getWidth() * getHeight();}
+
+    public Vector3 getA() {
+        return getPosition();
     }
 
-    public Point getB() {
+    public Vector3 getB() {
         return this.b;
     }
 
-    public int getHeight() {
-        return Math.abs(b.getY() - a.getY());
+    public double getHeight() {
+        return Math.abs( (b.getY() - getPosition().getY()));
     }
-    public void setHeight(int height) {
-        this.b.setY(height);
+    public void setHeight(double height) {b.setY(getPosition().getY() + height);}
+    public double getWidth() {return Math.abs( (b.getX() - getPosition().getX()));
     }
-    public int getWidth() {
-        return Math.abs(b.getX() - a.getX());
-    }
-    public void setWidth(int width) {
-        this.b.setX(width);
-    }
+    public void setWidth(double width) {b.setX(getPosition().getX() + width);}
 
     public Rectangle boundingBox(){
-        return new Rectangle(a, b);
+        return new Rectangle(getPosition(), b);
     }
 
     public boolean isOverlapping(Rectangle other) {
-        int thisLeft = Math.min(a.getX(), b.getX());
-        int thisRight = Math.max(a.getX(), b.getX());
-        int thisBottom = Math.max(a.getY(), b.getY());//reverse y, because graphics coordinate system
-        int thisTop = Math.min(a.getY(), b.getY());
+        double thisLeft = Math.min(getPosition().getX(), b.getX());
+        double thisRight = Math.max(getPosition().getX(), b.getX());
+        double thisBottom = Math.max(getPosition().getY(), b.getY());//reverse y, because graphics coordinate system
+        double thisTop = Math.min(getPosition().getY(), b.getY());
 
-        int otherLeft = Math.min(other.a.getX(), other.b.getX());
-        int otherRight = Math.max(other.a.getX(), other.b.getX());
-        int otherBottom = Math.max(other.a.getY(), other.b.getY());
-        int otherTop = Math.min(other.a.getY(), other.b.getY());
+        double otherLeft = Math.min(other.getPosition().getX(), other.b.getX());
+        double otherRight = Math.max(other.getPosition().getX(), other.b.getX());
+        double otherBottom = Math.max(other.getPosition().getY(), other.b.getY());
+        double otherTop = Math.min(other.getPosition().getY(), other.b.getY());
 
 
         if (thisLeft >= otherRight || otherLeft >= thisRight) {
@@ -73,31 +69,14 @@ public class Rectangle implements DrawableShape {
         return true;
     }
 
-    public Color getFillColor() {
-        return this.fillColor;
-    }
-
-    public void setFillColor(Color fillColor) {
-        this.fillColor = fillColor;
-    }
-
-    public Color getStrokeColor(){
-        return this.strokeColor;
-    }
-
-    public void setStrokeColor(Color strokeColor){
-        this.strokeColor = strokeColor;
-    }
-
     @Override
     public void draw(GraphicsContext graphicsContext) {
-        int topLeftX = Math.min(a.getX(), b.getX());
-        int topLeftY = Math.min(a.getY(), b.getY());
-        int width = Math.abs(b.getX() - a.getX());
-        int height = Math.abs(b.getY() - a.getY());
+        super.draw(graphicsContext);
+        double topLeftX = Math.min(getPosition().getX(), b.getX());
+        double topLeftY = Math.min(getPosition().getY(), b.getY());
+        double width = Math.abs(b.getX() - getPosition().getX());
+        double height = Math.abs(b.getY() - getPosition().getY());
 
-        graphicsContext.setFill(this.fillColor);
-        graphicsContext.setStroke(this.strokeColor);
         graphicsContext.fillRect(topLeftX, topLeftY, width, height);
         graphicsContext.strokeRect(topLeftX, topLeftY, width, height);
     }

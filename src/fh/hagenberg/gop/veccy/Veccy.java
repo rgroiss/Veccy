@@ -30,34 +30,9 @@ public class Veccy extends Application {
         VeccyGUI veccyGUI = new VeccyGUI(stage);
         CanvasModel model = veccyGUI.getModel();
 
-        drawNestedShapes(model);
-        drawDotsAndLines(model);
+        //drawNestedShapes(model);
+        //drawDotsAndLines(model);
 
-        /* testing out drawing shapes
-        Rectangle r1 = new Rectangle(new Point(40,50), new Point(100,150));
-        r1.setFillColor(Color.BLUEVIOLET);
-        r1.setStrokeColor(Color.AQUAMARINE);
-
-        Rectangle r2 = new Rectangle(new Point(300,200), new Point(500,700));
-        r2.setFillColor(Color.GREEN);
-        r2.setStrokeColor(Color.RED);
-
-        Circle c1 = new Circle(50, new Point(100,150));
-        c1.setFillColor(Color.PINK);
-        c1.setStrokeColor(Color.YELLOW);
-
-        Line l1 = new Line(new Point(100,150), new Point(200,400));
-        l1.setStrokeColor(Color.LIGHTCORAL);
-
-        Point p1 = new Point(500,350);
-        p1.setColor(Color.WHITE);
-
-        model.addShape(r1);
-        model.addShape(r2);
-        model.addShape(c1);
-        model.addShape(l1);
-        model.addShape(p1);
-        */
 
         NamedFeature rf = new RectangleFeature(model);
         NamedFeature cf = new CircleFeature(model);

@@ -1,18 +1,16 @@
 package fh.hagenberg.gop.veccy.shapes;
-
+import fh.hagenberg.gop.veccy.shapes.Point;
 import at.fhhgb.mtd.gop.veccy.shapes.DrawableShape;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
-
-public class Line implements DrawableShape {
+public class Line extends Shape {
     private Point start;
     private Point end;
     static final int MIN_SIZE = 1;
-    private Color strokeColor = Color.BLACK;
 
     public Line(Point start, Point end) {
+        super(start);
         this.start = start;
         this.end = end;
     }
@@ -46,17 +44,9 @@ public class Line implements DrawableShape {
         this.end = end;
     }
 
-    public Color getStrokeColor(){
-        return this.strokeColor;
-    }
-
-    public void setStrokeColor(Color strokeColor){
-        this.strokeColor = strokeColor;
-    }
-
     @Override
     public void draw(GraphicsContext graphicsContext) {
-        graphicsContext.setStroke(this.strokeColor);
+        super.draw(graphicsContext);
         graphicsContext.setLineWidth(1);
         graphicsContext.strokeLine(start.getX(), start.getY(), end.getX(), end.getY());
     }

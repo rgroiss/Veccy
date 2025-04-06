@@ -1,67 +1,73 @@
 package fh.hagenberg.gop.veccy.shapes;
 
 import at.fhhgb.mtd.gop.veccy.shapes.DrawableShape;
+import fh.hagenberg.gop.math.Vector3;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Circle implements DrawableShape {
-    private int radius;
-    private Point center;
-    private Color fillColor = Color.BLACK;
-    private Color strokeColor = Color.WHITE;
+public class Circle extends Shape {
+    private double radius;
 
-    public Circle(int radius, Point center) {
+    public Circle(double radius, Point position) {
+        super(position);
         this.radius = radius;
-        this.center = center;
     }
 
-    public int getArea() {
-        return (int) (Math.PI * radius * radius);
+    public Circle(double radius, Vector3 position) {
+        super(position);
+        this.radius = radius;
+    }
+
+    public double getArea() {
+        return Math.PI * radius * radius;
     }
 
     public Rectangle getBoundingBox() {
-        return new Rectangle(new Point(center.getX()-radius, center.getY()-radius),
-                new Point(center.getX()+radius, center.getY()+radius));
+        return new Rectangle(new Vector3(getPosition().getX()-radius, getPosition().getY()-radius, 1.0),
+                new Vector3(getPosition().getX()+radius, getPosition().getY()+radius, 1.0));
     }
 
-    public Color getFillColor() {
-        return this.fillColor;
-    }
-
-    public void setFillColor(Color fillColor) {
-        this.fillColor = fillColor;
-    }
-
-    public Color getStrokeColor(){
-        return this.strokeColor;
-    }
-
-    public void setStrokeColor(Color strokeColor){
-        this.strokeColor = strokeColor;
-    }
-
-    public void setRadius(int radius) {
+    public void setRadius(double radius) {
+        if (radius < 0) throw new IllegalArgumentException("Radius cannot be negative.");
         this.radius = radius;
     }
 
-    public int getRadius() {
+    public double getRadius() {
         return this.radius;
     }
 
-    public Point getCenter() {
-        return this.center;
+    public Vector3 getCenter() {
+        return getPosition();
     }
 
-    public void setCenter(Point center) {
-        this.center = center;
+    public void setCenter(Point position) {
+        setPosition(position);
+    }
+
+    public void setCenter(double x, double y, double z) {
+        setPosition(x, y, z);
+    }
+
+    public void setCenter(Vector3 position) {
+        setPosition(position);
     }
 
     @Override
     public void draw(GraphicsContext graphicsContext) {
+        super.draw(graphicsContext);
+
         Rectangle circle = getBoundingBox();
-        graphicsContext.setFill(this.fillColor);
-        graphicsContext.setStroke(this.strokeColor);
-        graphicsContext.fillOval(circle.a.getX(), circle.a.getY(), circle.getWidth(), circle.getHeight());
-        graphicsContext.strokeOval(circle.a.getX(), circle.a.getY(), circle.getWidth(), circle.getHeight());
+        double originX = getPosition().getX();
+        double originY = getPosition().getY();
+        double width = circle.getWidth();
+        double height = circle.getHeight();
+
+        graphicsContext.fillOval(originX, originY, width, height);
+        graphicsContext.strokeOval(originX, originY, width, height);
+    }
+
+    @Override
+    public String toString() {
+        return "Circle{center=" + getPosition() + ", radius=" + radius + "}";
     }
 }
