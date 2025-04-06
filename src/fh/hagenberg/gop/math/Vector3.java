@@ -23,6 +23,9 @@ public class Vector3 {
     public Vector3(double x, double y, double z) {
         this(new double[]{x, y, z});
     }
+    public Vector3(double x, double y) {
+        this(new double[]{x, y, 1});
+    }
 
     public Vector3(Point position){
         this(new double[]{position.getX(), position.getY(), 1.0});

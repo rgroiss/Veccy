@@ -65,7 +65,7 @@ public class Veccy extends Application {
             }
             else
             {
-                cord.setColor(color);
+                cord.setFillColor(color);
                 model.addShape(cord);
             }
         }

@@ -8,7 +8,7 @@ import fh.hagenberg.gop.veccy.shapes.Point;
 import fh.hagenberg.gop.veccy.shapes.Rectangle;
 
 public class CircleFeature implements NamedFeature {
-    private Circle currentCirlce;
+    private Circle currentCircle;
     private boolean selected;
     private CanvasModel cv;
     Vector3 center;
@@ -38,9 +38,7 @@ public class CircleFeature implements NamedFeature {
     public void onMouseClick(int x, int y) {
         if(this.selected){
             System.out.println("clicked on Circle " + x + " " + y);
-            if(this.currentCirlce != null){
-                this.currentCirlce = null;
-            }
+            this.currentCircle = null;
         }
     }
 
@@ -48,19 +46,17 @@ public class CircleFeature implements NamedFeature {
         public void onMouseDrag(int x, int y) {
             if(this.selected){
                 System.out.println("dragged Circle " + x + " " + y);
-                if(this.currentCirlce == null){
-                    // TODO start DRAWING
-                    this.currentCirlce = new Circle(0, new Point(x, y));
-                    center = this.currentCirlce.getCenter();
-                    this.currentCirlce.setStrokeColor(cv.getCurrentStrokeColor());
-                    this.currentCirlce.setFillColor(cv.getCurrentFillColor());
-                    this.cv.addShape(this.currentCirlce);
+                if(this.currentCircle == null){
+                    this.currentCircle = new Circle(0, new Vector3(x, y));
+                    center = this.currentCircle.getCenter();
+                    this.currentCircle.setStrokeColor(cv.getCurrentStrokeColor());
+                    this.currentCircle.setFillColor(cv.getCurrentFillColor());
+                    this.cv.addShape(this.currentCircle);
                 }else{
-                    // TODO update RECTANGLE
-                    double dx = x - center.getValues()[0];
-                    double dy = y - center.getValues()[1];
+                    double dx = x - center.getX();
+                    double dy = y - center.getY();
                     double radius = Math.sqrt(dx*dx + dy*dy);
-                    this.currentCirlce.setRadius((int)radius);
+                    this.currentCircle.setRadius(radius);
                 }
             }
         }

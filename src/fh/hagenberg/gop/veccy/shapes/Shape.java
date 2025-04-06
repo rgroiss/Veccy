@@ -16,6 +16,10 @@ public abstract class Shape implements DrawableShape {
         this.position = new Vector3(new double[]{x, y, 1});
     }
 
+    public Shape(double x, double y){
+        this.position = new Vector3(new double[]{x, y, 1});
+    }
+
     public Shape(Vector3 position){
         this.position = position;
     }

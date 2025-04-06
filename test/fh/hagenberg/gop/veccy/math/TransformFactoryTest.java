@@ -41,7 +41,7 @@ public class TransformFactoryTest {
     public void testRotation() {
         //Vector
         Vector3 vec = new Vector3(new double[]{1.0, 0.0, 1.0});
-        Matrix3 rotation = TransformFactory.createRotation(Math.PI / 2);
+        Matrix3 rotation = TransformFactory.createRotation(Math.PI / 2);// 90° counter clock-wise
         Vector3 transformedVec = rotation.mult(vec);
 
         //1e-6 Toleranzwert, sonst Rundungsfehler

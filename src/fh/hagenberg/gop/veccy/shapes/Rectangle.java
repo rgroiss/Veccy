@@ -80,4 +80,16 @@ public class Rectangle extends Shape {
         graphicsContext.fillRect(topLeftX, topLeftY, width, height);
         graphicsContext.strokeRect(topLeftX, topLeftY, width, height);
     }
+
+    @Override
+    public String toString() {
+        return "Rectangle{" +
+                "A= x:" + getA().getX() + ", y:" + getA().getY() +
+                ", B= x:" + getB().getX() + ", y:" + getB().getY() +
+                ", width=" + getWidth() +
+                ", height=" + getHeight() +
+                ", fillColor=" + getFillColor() +
+                ", strokeColor=" + getStrokeColor() +
+                '}';
+    }
 }

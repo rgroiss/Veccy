@@ -2,6 +2,7 @@ package fh.hagenberg.gop.features;
 
 import at.fhhgb.mtd.gop.veccy.model.CanvasModel;
 import at.fhhgb.mtd.gop.veccy.model.NamedFeature;
+import fh.hagenberg.gop.math.Vector3;
 import fh.hagenberg.gop.veccy.shapes.Point;
 import fh.hagenberg.gop.veccy.shapes.Rectangle;
 
@@ -47,13 +48,11 @@ public class RectangleFeature implements NamedFeature {
         if(this.selected){
             System.out.println("dragged Rectangle " + x + " " + y);
             if(this.currentRectangle == null){
-                // TODO start DRAWING
-                this.currentRectangle = new Rectangle(new Point(x, y), new Point(x, y));
+                this.currentRectangle = new Rectangle(new Vector3(x, y), new Vector3(x, y));
                 this.currentRectangle.setStrokeColor(cv.getCurrentStrokeColor());
                 this.currentRectangle.setFillColor(cv.getCurrentFillColor());
                 this.cv.addShape(this.currentRectangle);
             }else{
-                // TODO update RECTANGLE
                 this.currentRectangle.getB().setX(x);
                 this.currentRectangle.getB().setY(y);
             }

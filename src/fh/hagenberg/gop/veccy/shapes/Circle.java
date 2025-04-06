@@ -55,15 +55,15 @@ public class Circle extends Shape {
     @Override
     public void draw(GraphicsContext graphicsContext) {
         super.draw(graphicsContext);
+        Rectangle bounds = getBoundingBox();
 
-        Rectangle circle = getBoundingBox();
-        double originX = getPosition().getX();
-        double originY = getPosition().getY();
-        double width = circle.getWidth();
-        double height = circle.getHeight();
+        double x = Math.min(bounds.getA().getX(), bounds.getB().getX());
+        double y = Math.min(bounds.getA().getY(), bounds.getB().getY());
+        double w = bounds.getWidth();
+        double h = bounds.getHeight();
 
-        graphicsContext.fillOval(originX, originY, width, height);
-        graphicsContext.strokeOval(originX, originY, width, height);
+        graphicsContext.fillOval(x, y, w, h);
+        graphicsContext.strokeOval(x, y, w, h);
     }
 
     @Override

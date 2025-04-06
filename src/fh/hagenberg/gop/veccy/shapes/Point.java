@@ -11,6 +11,10 @@ public class Point extends Shape {
         super(x, y);
     }
 
+    public Point(double x, double y) {
+        super(x, y);
+    }
+
     public Point(){
         super(0,0);
     }
@@ -20,12 +24,17 @@ public class Point extends Shape {
     }
 
     public Vector3 toVector3(){
-        return new Vector3(new double[]{super.getX(), super.getY(), 1});
+        return new Vector3(getPosition());
     }
 
     @Override
     public void draw(GraphicsContext graphicsContext) {
         super.draw(graphicsContext);
         graphicsContext.fillRect(super.getX(), super.getY(),3, 3);//set the size to 3 for visibility
+    }
+
+    @Override
+    public String toString() {
+        return "Point{" + getPosition() + "}";
     }
 }

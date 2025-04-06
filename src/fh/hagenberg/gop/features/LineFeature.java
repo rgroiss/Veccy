@@ -2,6 +2,7 @@ package fh.hagenberg.gop.features;
 
 import at.fhhgb.mtd.gop.veccy.model.CanvasModel;
 import at.fhhgb.mtd.gop.veccy.model.NamedFeature;
+import fh.hagenberg.gop.math.Vector3;
 import fh.hagenberg.gop.veccy.shapes.Circle;
 import fh.hagenberg.gop.veccy.shapes.Line;
 import fh.hagenberg.gop.veccy.shapes.Point;
@@ -47,13 +48,13 @@ public class LineFeature implements NamedFeature {
         if(this.selected){
             System.out.println("dragged Line " + x + " " + y);
             if(this.currentLine == null){
-                // TODO start DRAWING
-                this.currentLine = new Line(new Point(x, y), new Point(x, y));
+                Vector3 v = new Vector3(x, y);
+                this.currentLine = new Line(v,v);
                 this.currentLine.setStrokeColor(cv.getCurrentStrokeColor());
+                this.currentLine.setFillColor(cv.getCurrentFillColor());//for potential future functions
                 this.cv.addShape(this.currentLine);
             }else{
-                // TODO update RECTANGLE
-                currentLine.setEnd(new Point(x, y));
+                currentLine.setEnd(new Vector3(x, y));
             }
         }
     }
