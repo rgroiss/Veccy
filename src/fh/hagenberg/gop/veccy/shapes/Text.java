@@ -16,7 +16,7 @@ public class Text extends Shape {
         this.height = 1;
     }
 
-    public void setSize(int width, int height){
+    public void setSize(double width, double height){
         this.width = width;
         this.height = height;
     }
@@ -34,7 +34,9 @@ public class Text extends Shape {
         super.draw(gc);
         if(content == null || content.isEmpty()) return;
 
-        double fontSize = Math.min(height, width/content.length() * 1.5);
+        int numChars = Math.max(1, content.length()); // prevent div by 0
+        double averageCharWidth = width / numChars;
+        double fontSize = Math.min(height, averageCharWidth * 1.5);
         gc.setFont(new Font(fontSize));
 
         gc.fillText(content, position.getX(), position.getY() + fontSize);
