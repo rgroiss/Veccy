@@ -36,26 +36,43 @@ public class Polygon extends Shape{
     }
 
     @Override
-    public void draw(GraphicsContext gc){
-        if(isComplete()){
-            super.draw(gc);
-            double[] xPoints = new double[vertices.size()];
-            double[] yPoints = new double[vertices.size()];
+    public void draw(GraphicsContext gc) {
+        if (!isComplete()) return;
 
-            Matrix3 toOrigin = TransformFactory.createTranslation((int)-getPosition().getX(), (int)-getPosition().getY());
-            Matrix3 backToFormer = TransformFactory.createTranslation((int)getPosition().getX(), (int)getPosition().getY());
+        super.draw(gc);
 
-            for(int i = 0; i < vertices.size(); i++){
-                Vector3 v = vertices.get(i);
-                if(transform != null){
-                    v = backToFormer.mult(transform.mult(toOrigin.mult(v)));
-                }
-                xPoints[i] = v.getX();
-                yPoints[i] = v.getY();
+        double[] xPoints = new double[vertices.size()];
+        double[] yPoints = new double[vertices.size()];
+
+        Matrix3 toOrigin = TransformFactory.createTranslation(-getPosition().getX(), -getPosition().getY());
+        Matrix3 backToFormer = TransformFactory.createTranslation(getPosition().getX(), getPosition().getY());
+
+        for (int i = 0; i < vertices.size(); i++) {
+            Vector3 v = vertices.get(i);
+
+            if (transform != null) {
+                v = backToFormer.mult(transform.mult(toOrigin.mult(v)));
             }
 
-            gc.fillPolygon(xPoints, yPoints, xPoints.length);
-            gc.strokePolygon(xPoints, yPoints, xPoints.length);
+            xPoints[i] = v.getX();
+            yPoints[i] = v.getY();
         }
+
+        gc.fillPolygon(xPoints, yPoints, xPoints.length);
+        gc.strokePolygon(xPoints, yPoints, xPoints.length);
+    }
+
+
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Polygon{");
+        sb.append("vertices=").append(vertices.size());
+        sb.append(", closed=").append(isComplete());
+        sb.append(", fillColor=").append(getFillColor());
+        sb.append(", strokeColor=").append(getStrokeColor());
+        sb.append(", position=").append(getPosition());
+        sb.append('}');
+        return sb.toString();
     }
 }

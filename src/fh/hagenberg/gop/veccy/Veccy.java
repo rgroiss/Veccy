@@ -45,6 +45,8 @@ public class Veccy extends Application {
 
         NamedFeature polf = new PolygonFeature(model);
         model.addFeature(polf);
+        NamedFeature pathf = new PathFeature(model);
+        model.addFeature(pathf);
     }
 
     private void drawDotsAndLines(CanvasModel model) {

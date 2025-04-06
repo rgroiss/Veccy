@@ -8,6 +8,13 @@ public class TransformFactory {
                     {0,0,1}
             });
         }
+    public static Matrix3 createTranslation(double deltaX, double deltaY) {
+        return new Matrix3(new double[][]{
+                {1,0,deltaX},
+                {0,1,deltaY},
+                {0,0,1}
+        });
+    }
         public static Matrix3 createRotation(double radians) {
             return new Matrix3(new double[][]{
                     {Math.cos(radians),-Math.sin(radians),0},
