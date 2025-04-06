@@ -47,6 +47,8 @@ public class Veccy extends Application {
         model.addFeature(polf);
         NamedFeature pathf = new PathFeature(model);
         model.addFeature(pathf);
+        NamedFeature textf = new TextFeature(model);
+        model.addFeature(textf);
     }
 
     private void drawDotsAndLines(CanvasModel model) {
