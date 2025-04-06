@@ -3,10 +3,9 @@ package fh.hagenberg.gop.veccy;
 import at.fhhgb.mtd.gop.veccy.VeccyGUI;
 import at.fhhgb.mtd.gop.veccy.model.CanvasModel;
 import at.fhhgb.mtd.gop.veccy.model.NamedFeature;
-import fh.hagenberg.gop.features.CircleFeature;
-import fh.hagenberg.gop.features.LineFeature;
-import fh.hagenberg.gop.features.PointFeature;
-import fh.hagenberg.gop.features.RectangleFeature;
+import fh.hagenberg.gop.features.*;
+import fh.hagenberg.gop.math.Matrix3;
+import fh.hagenberg.gop.math.TransformFactory;
 import fh.hagenberg.gop.veccy.shapes.Circle;
 import fh.hagenberg.gop.veccy.shapes.Line;
 import fh.hagenberg.gop.veccy.shapes.Point;
@@ -19,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.util.Random;
 
+//VM OPTION: --module-path lib --add-modules javafx.controls
 public class Veccy extends Application {
 
     public static void main(String[] args) {
@@ -30,7 +30,7 @@ public class Veccy extends Application {
         VeccyGUI veccyGUI = new VeccyGUI(stage);
         CanvasModel model = veccyGUI.getModel();
 
-        //drawNestedShapes(model);
+        drawNestedShapes(model);
         //drawDotsAndLines(model);
 
 
@@ -42,6 +42,9 @@ public class Veccy extends Application {
         model.addFeature(cf);
         model.addFeature(lf);
         model.addFeature(pf);
+
+        NamedFeature polf = new PolygonFeature(model);
+        model.addFeature(polf);
     }
 
     private void drawDotsAndLines(CanvasModel model) {
@@ -73,28 +76,46 @@ public class Veccy extends Application {
 
     private void drawNestedShapes(CanvasModel model) {
         Random rand = new Random();
-        Point center = new Point(400, 350);
 
-        for(int i = 360; i >= 10; i-=20) {
+        // Center of canvas
+        int canvasCenterX = 800 / 2;
+        int canvasCenterY = 700 / 2;
+        Point center = new Point(canvasCenterX, canvasCenterY);
+
+        for (int i = 360; i >= 10; i -= 20) {
             Color fill = Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
             Color stroke = Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
 
-            int shapeType = rand.nextInt(2);
-            if(shapeType == 0) {
+            // Balanced offset range, large shapes move less, small shapes can go farther
+            int maxOffset = Math.max(100, 400 - i); // e.g. large shapes are kept closer to center
+            int translateX = rand.nextInt(maxOffset * 2) - maxOffset;
+            int translateY = rand.nextInt(maxOffset * 2) - maxOffset;
+
+            double angle = rand.nextDouble() * 360;
+            double scaleX = 0.5 + rand.nextDouble(); // 0.5 to 1.5
+            double scaleY = 0.5 + rand.nextDouble();
+
+            Matrix3 transform = TransformFactory
+                    .createTranslation(translateX, translateY)
+                    .mult(TransformFactory.createRotation(Math.toRadians(angle)))
+                    .mult(TransformFactory.createScaling(scaleX, scaleY));
+
+            if (rand.nextBoolean()) {
                 Circle c = new Circle(i, center);
                 c.setFillColor(fill);
                 c.setStrokeColor(stroke);
+                c.setTransform(transform);
                 model.addShape(c);
-            }
-            else
-            {
-                int x = center.getX()-i;
-                int y = center.getY()-i;
-                Rectangle r = new Rectangle(x, y, i*2, i*2);
+            } else {
+                int x = center.getX() - i;
+                int y = center.getY() - i;
+                Rectangle r = new Rectangle(x, y, i * 2, i * 2);
                 r.setFillColor(fill);
                 r.setStrokeColor(stroke);
+                r.setTransform(transform);
                 model.addShape(r);
             }
         }
     }
+
 }
