@@ -83,7 +83,6 @@ public class Path extends Shape {
         }
     }
 
-
     @Override
     public String toString() {
         return "Path{" +
