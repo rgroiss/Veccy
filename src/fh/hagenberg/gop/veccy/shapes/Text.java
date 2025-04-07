@@ -30,6 +30,19 @@ public class Text extends Shape {
     }
 
     @Override
+    public double[][] getCoordinates() {
+        return new double[][]{
+                {getX(), getX() + content.length() * 6},
+                {getY(), getY() -12}
+        };
+    }
+
+    @Override
+    public Rectangle getBoundingBox() {
+        return new Rectangle(getX(), getY(),content.length() * 6, getY() - 12);
+    }
+
+    @Override
     public void draw(GraphicsContext gc){
         super.draw(gc);
         if(content == null || content.isEmpty()) return;

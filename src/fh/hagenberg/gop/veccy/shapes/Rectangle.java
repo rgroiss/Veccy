@@ -45,7 +45,8 @@ public class Rectangle extends Shape {
     }
     public void setWidth(double width) {b.setX(getPosition().getX() + width);}
 
-    public Rectangle boundingBox(){
+    @Override
+    public Rectangle getBoundingBox(){
         return new Rectangle(getPosition(), b);
     }
 
@@ -91,7 +92,7 @@ public class Rectangle extends Shape {
                 '}';
     }
 
-    private double[][] getCoordinates() {
+    public double[][] getCoordinates() {
         double x1 = getA().getX();
         double y1 = getA().getY();
         double x2 = getB().getX();

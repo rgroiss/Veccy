@@ -11,6 +11,7 @@ public abstract class Shape implements DrawableShape {
     protected Matrix3 transform;
     protected Color fillColor = Color.WHITE;
     protected Color strokeColor = Color.WHITE;
+    private boolean selected = false;
 
     public Shape(int x, int y){
         this.position = new Vector3(new double[]{x, y, 1});
@@ -43,6 +44,13 @@ public abstract class Shape implements DrawableShape {
 
     public void setY(int y){
         this.position.setY(y);
+    }
+
+    public boolean isSelected(){
+        return this.selected;
+    }
+    public void setSelected(boolean selected){
+        this.selected = selected;
     }
 
     public Vector3 getPosition(){
@@ -81,8 +89,19 @@ public abstract class Shape implements DrawableShape {
         this.transform = transform;
     }
 
+    public abstract double[][] getCoordinates();
+
+    public Rectangle getBoundingBox(){
+        return new Rectangle(getPosition(), getPosition());
+    }
+
     @Override
     public void draw(GraphicsContext graphicsContext){
+        if(isSelected()){
+            Rectangle bb = getBoundingBox();
+            graphicsContext.setStroke(Color.GREEN);
+            graphicsContext.strokeRect(bb.getX(), bb.getY(), bb.getWidth(), bb.getHeight());
+        }
         graphicsContext.setFill(this.fillColor);
         graphicsContext.setStroke(this.strokeColor);
     }

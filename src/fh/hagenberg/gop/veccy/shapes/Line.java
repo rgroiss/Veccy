@@ -19,6 +19,14 @@ public class Line extends Shape {
         this.end = new Vector3(end);
     }
 
+    @Override
+    public double[][] getCoordinates() {
+        return new double[][]{
+                {getX(), getY()},
+                {end.getX(), end.getY()}};
+    }
+
+    @Override
     public Rectangle getBoundingBox() {
         double minX = Math.min(getPosition().getX(), end.getX());
         double maxX = Math.max(getPosition().getX(), end.getX());
