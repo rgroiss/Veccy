@@ -70,6 +70,22 @@ public class PolygonFeature implements NamedFeature {
 
     @Override
     public void onMouseDrag(int x, int y) {
-        //not used on this shape
+        //optional
+        if(selected){
+            Vector3 point = new Vector3(x,y,1);
+            System.out.println("clicked Polygon at " + x + ", " + y);
+
+            if(currentPolygon == null){
+                currentPolygon = new Polygon(point);
+                currentPolygon.setFillColor(cv.getCurrentFillColor());
+                currentPolygon.setStrokeColor(cv.getCurrentStrokeColor());
+            }else{
+                Line l = new Line(currentPolygon.getVertices().getLast(), new Vector3(x,y,1));
+                l.setStrokeColor(cv.getCurrentStrokeColor());
+                cv.addShape(l);
+                previewLines.add(l);
+                currentPolygon.addVertex(point);
+            }
+        }
     }
 }

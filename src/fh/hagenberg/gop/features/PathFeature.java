@@ -68,6 +68,22 @@ public class PathFeature implements NamedFeature {
 
     @Override
     public void onMouseDrag(int x, int y) {
-        //not used on this shape
+        //optional
+        if(!selected) return;
+
+        Vector3 point = new Vector3(x,y,1);
+        System.out.println("clicked Path at " + x + ", " + y);
+
+        if(currentPath == null){
+            currentPath = new Path(point);
+            currentPath.setStrokeColor(cv.getCurrentStrokeColor());
+            currentPath.setFillColor(cv.getCurrentFillColor());
+        }else{
+            Line l = new Line(currentPath.getVertices().getLast(), new Vector3(x,y,1));
+            l.setStrokeColor(cv.getCurrentStrokeColor());
+            cv.addShape(l);
+            previewLines.add(l);
+            currentPath.addPoint(point);
+        }
     }
 }

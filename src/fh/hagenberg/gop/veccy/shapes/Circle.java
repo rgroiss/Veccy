@@ -56,18 +56,6 @@ public class Circle extends Shape {
 
     @Override
     public void draw(GraphicsContext graphicsContext) {
-       /*
-        super.draw(graphicsContext);
-        Rectangle bounds = getBoundingBox();
-
-        double x = Math.min(bounds.getA().getX(), bounds.getB().getX());
-        double y = Math.min(bounds.getA().getY(), bounds.getB().getY());
-        double w = bounds.getWidth();
-        double h = bounds.getHeight();
-
-        graphicsContext.fillOval(x, y, w, h);
-        graphicsContext.strokeOval(x, y, w, h);
-*/
         super.draw(graphicsContext);
         double[][] coordinates = getCoordinates();
         graphicsContext.fillPolygon(coordinates[0], coordinates[1], coordinates[0].length);
@@ -88,7 +76,7 @@ public class Circle extends Shape {
         for(int i = 0; i<256; i++){
             positions[i] = new Vector3(
                     (x+radius*Math.cos(t)),
-                    (x+radius*Math.sin(t)),
+                    (y+radius*Math.sin(t)),
                     1.0);
             t += 2 * Math.PI / 256;
         }
