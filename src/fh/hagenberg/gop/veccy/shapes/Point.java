@@ -23,18 +23,6 @@ public class Point extends Shape {
         super(point);
     }
 
-    @Override
-    public double[][] getCoordinates() {
-        return new double[][]{{getX(), getY()}};
-    }
-
-    @Override
-    public Rectangle getBoundingBox() {
-        return new Rectangle(
-                new Vector3(getX() - 1, getY() - 1),
-                new Vector3(getX() + 1, getY() + 1));
-    }
-
     public Vector3 toVector3(){
         return new Vector3(getPosition());
     }

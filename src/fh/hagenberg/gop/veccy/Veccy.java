@@ -3,18 +3,19 @@ package fh.hagenberg.gop.veccy;
 import at.fhhgb.mtd.gop.veccy.VeccyGUI;
 import at.fhhgb.mtd.gop.veccy.model.CanvasModel;
 import at.fhhgb.mtd.gop.veccy.model.NamedFeature;
-import at.fhhgb.mtd.gop.veccy.shapes.DrawableShape;
 import fh.hagenberg.gop.features.*;
 import fh.hagenberg.gop.math.Matrix3;
 import fh.hagenberg.gop.math.TransformFactory;
-import fh.hagenberg.gop.veccy.shapes.*;
+import fh.hagenberg.gop.veccy.shapes.Circle;
+import fh.hagenberg.gop.veccy.shapes.Line;
+import fh.hagenberg.gop.veccy.shapes.Point;
+import fh.hagenberg.gop.veccy.shapes.Rectangle;
 import javafx.application.Application;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.LinkedList;
 import java.util.Random;
 
 //VM OPTION: --module-path lib --add-modules javafx.controls
@@ -28,10 +29,10 @@ public class Veccy extends Application {
     public void start(Stage stage) throws Exception {
         VeccyGUI veccyGUI = new VeccyGUI(stage);
         CanvasModel model = veccyGUI.getModel();
-        LinkedList<Shape> shapesList = new LinkedList<>();
 
         drawNestedShapes(model);
         //drawDotsAndLines(model);
+
 
         NamedFeature rf = new RectangleFeature(model);
         NamedFeature cf = new CircleFeature(model);
@@ -41,15 +42,6 @@ public class Veccy extends Application {
         model.addFeature(cf);
         model.addFeature(lf);
         model.addFeature(pf);
-
-        model.setCurrentlySelectedShapeHandler(index -> {
-            for(int i = 0; i < shapesList.size(); i++){
-                shapesList.get(i).setSelected(false);
-            }
-        });
-        model.setShapeCreationHandler(drawableShape -> {
-            shapesList.add((Shape)drawableShape);
-        });
 
         NamedFeature polf = new PolygonFeature(model);
         model.addFeature(polf);

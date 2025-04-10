@@ -24,7 +24,6 @@ public class Circle extends Shape {
         return Math.PI * radius * radius;
     }
 
-    @Override
     public Rectangle getBoundingBox() {
         return new Rectangle(new Vector3(getPosition().getX()-radius, getPosition().getY()-radius, 1.0),
                 new Vector3(getPosition().getX()+radius, getPosition().getY()+radius, 1.0));
@@ -68,7 +67,7 @@ public class Circle extends Shape {
         return "Circle{center=" + getPosition() + ", radius=" + radius + "}";
     }
 
-    public double[][] getCoordinates() {
+    private double[][] getCoordinates() {
         Vector3[] positions = new Vector3[256];
         double t = 0;
         double x = getPosition().getX();

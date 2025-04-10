@@ -23,16 +23,6 @@ public class Polygon extends Shape{
         this.vertices.add(start);
     }
 
-    @Override
-    public double[][] getCoordinates() {
-        double[][] coordinates = new double[vertices.size()][];
-        for (int i = 0; i < vertices.size(); i++) {
-            coordinates[0][i] = vertices.get(i).getX();
-            coordinates[1][i] = vertices.get(i).getY();
-        }
-        return coordinates;
-    }
-
     public void addVertex(Vector3 v) {
         vertices.add(v);
     }
@@ -43,28 +33,6 @@ public class Polygon extends Shape{
 
     public boolean isComplete(){
         return vertices.size() >= 3;
-    }
-
-    @Override
-    public Rectangle getBoundingBox() {
-        Vector3 topLeft = new Vector3(Float.MAX_VALUE, Float.MAX_VALUE, 1.0);// lowest Y, lowest X
-        Vector3 bottomRight = new Vector3(Float.MIN_VALUE, Float.MIN_VALUE, 1.0);// highest Y, lowest X
-
-        for(int i = 0; i < vertices.size(); i++){
-            if(vertices.get(i).getX() < topLeft.getX()){
-                topLeft.setX(vertices.get(i).getX());
-            }
-            if(vertices.get(i).getY() < topLeft.getY()){
-                topLeft.setY(vertices.get(i).getY());
-            }
-            if(vertices.get(i).getX() > bottomRight.getX()){
-                bottomRight.setX(vertices.get(i).getX());
-            }
-            if(vertices.get(i).getY() > bottomRight.getY()){
-                bottomRight.setY(vertices.get(i).getY());
-            }
-        }
-        return new Rectangle(topLeft, bottomRight);
     }
 
     @Override

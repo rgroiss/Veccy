@@ -5,7 +5,6 @@ import at.fhhgb.mtd.gop.veccy.model.NamedFeature;
 import fh.hagenberg.gop.math.Vector3;
 import fh.hagenberg.gop.veccy.shapes.Line;
 import fh.hagenberg.gop.veccy.shapes.Polygon;
-import fh.hagenberg.gop.veccy.shapes.Rectangle;
 
 import java.util.ArrayList;
 import java.util.List;
