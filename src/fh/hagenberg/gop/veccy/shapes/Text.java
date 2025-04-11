@@ -36,7 +36,7 @@ public class Text extends Shape {
 
         int numChars = Math.max(1, content.length()); // prevent div by 0
         double averageCharWidth = width / numChars;
-        double fontSize = Math.min(height, averageCharWidth * 1.5);
+        double fontSize = Math.min(height, averageCharWidth * 2);
         gc.setFont(new Font(fontSize));
 
         gc.fillText(content, position.getX(), position.getY() + fontSize);
