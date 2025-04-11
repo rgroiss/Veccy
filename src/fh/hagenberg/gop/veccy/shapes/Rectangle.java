@@ -108,8 +108,8 @@ public class Rectangle extends Shape {
         Vector3 p4 = new Vector3(minX, maxY, 1); // bottom-left
         Vector3[] positions = new Vector3[]{p1, p2, p3, p4};
 
-        Matrix3 toOrigin = TransformFactory.createTranslation((int)-getA().getX(), (int)-getA().getY());
-        Matrix3 backToFormer = TransformFactory.createTranslation((int)getA().getX(), (int)getA().getY());
+        Matrix3 toOrigin = TransformFactory.createTranslation((int)-(getA().getX()+getWidth()/2), (int)-(getA().getY()-getHeight()/2));
+        Matrix3 backToFormer = TransformFactory.createTranslation((int)(getA().getX()+getWidth()/2), (int)(getA().getY()-getHeight()/2));
 
         if(transform != null){
             for(int i = 0; i<positions.length; i++){

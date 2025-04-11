@@ -70,8 +70,8 @@ public class Circle extends Shape {
     private double[][] getCoordinates() {
         Vector3[] positions = new Vector3[256];
         double t = 0;
-        double x = getPosition().getX();
-        double y = getPosition().getY();
+        double x = getX();
+        double y = getY();
 
         for(int i = 0; i<256; i++){
             positions[i] = new Vector3(
@@ -81,8 +81,8 @@ public class Circle extends Shape {
             t += 2 * Math.PI / 256;
         }
 
-        Matrix3 toOrigin = TransformFactory.createTranslation((int)-getPosition().getX(), (int)-getPosition().getY());
-        Matrix3 backToFormer = TransformFactory.createTranslation((int)getPosition().getX(), (int)getPosition().getY());
+        Matrix3 toOrigin = TransformFactory.createTranslation(-getX(), -getY());
+        Matrix3 backToFormer = TransformFactory.createTranslation(getX(), getY());
 
         if(transform != null){
             for(int i = 0; i<positions.length; i++){
