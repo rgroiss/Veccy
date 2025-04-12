@@ -13,15 +13,15 @@ public abstract class Shape implements DrawableShape {
     protected Color strokeColor = Color.WHITE;
 
     public Shape(int x, int y){
-        this.position = new Vector3(new double[]{x, y, 1});
+        this.position = new Vector3(x,y);
     }
 
     public Shape(double x, double y){
-        this.position = new Vector3(new double[]{x, y, 1});
+        this.position = new Vector3(x,y);
     }
 
     public Shape(Vector3 position){
-        this.position = position;
+        this.position = new Vector3(position);
     }
 
     public Shape(Point position){

@@ -15,6 +15,11 @@ public class Circle extends Shape {
         this.radius = radius;
     }
 
+    public Circle(double radius, double x, double y) {
+        super(x, y);
+        this.radius = radius;
+    }
+
     public Circle(double radius, Vector3 position) {
         super(position);
         this.radius = radius;

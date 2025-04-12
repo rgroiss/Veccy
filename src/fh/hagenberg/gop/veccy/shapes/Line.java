@@ -20,10 +20,10 @@ public class Line extends Shape {
     }
 
     public Rectangle getBoundingBox() {
-        double minX = Math.min(getPosition().getX(), end.getX());
-        double maxX = Math.max(getPosition().getX(), end.getX());
-        double minY = Math.min(getPosition().getY(), end.getY());
-        double maxY = Math.max(getPosition().getY(), end.getY());
+        double minX = Math.min(getX(), end.getX());
+        double maxX = Math.max(getX(), end.getX());
+        double minY = Math.min(getY(), end.getY());
+        double maxY = Math.max(getY(), end.getY());
 
         // Ensure at least MIN_SIZE width and height
         if (minX == maxX) maxX += MIN_SIZE; // If vertical, add width
