@@ -61,10 +61,12 @@ public class Veccy extends Application {
         NamedFeature cf = new CircleFeature(model);
         NamedFeature lf = new LineFeature(model);
         NamedFeature pf = new PointFeature(model);
+
         model.addFeature(rf);
         model.addFeature(cf);
         model.addFeature(lf);
         model.addFeature(pf);
+
 
         NamedFeature polf = new PolygonFeature(model);
         model.addFeature(polf);
@@ -72,6 +74,9 @@ public class Veccy extends Application {
         model.addFeature(pathf);
         NamedFeature textf = new TextFeature(model);
         model.addFeature(textf);
+
+        NamedFeature translate = new TranslateFeature(model, shapesList);
+        model.addFeature(translate);
     }
 
     private void drawDotsAndLines(CanvasModel model) {

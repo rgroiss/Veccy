@@ -58,8 +58,9 @@ public class Line extends Shape {
     @Override
     public void draw(GraphicsContext graphicsContext) {
         super.draw(graphicsContext);
+        double[][] coordinates = getCoordinates();
         graphicsContext.setLineWidth(1);
-        graphicsContext.strokeLine(getPosition().getX(), getPosition().getY(), end.getX(), end.getY());
+        graphicsContext.strokeLine(coordinates[0][0], coordinates[1][0], coordinates[0][1], coordinates[1][1]);
     }
 
     @Override

@@ -92,6 +92,10 @@ public abstract class Shape implements DrawableShape {
         this.transform = transform;
     }
 
+    public Matrix3 getTransform(){
+        return this.transform;
+    }
+
     public Rectangle getBoundingBox() {
         double[][] cords = getCoordinates();
 

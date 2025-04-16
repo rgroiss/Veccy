@@ -62,18 +62,23 @@ public class Text extends Shape {
     }
 
     @Override
-    public void draw(GraphicsContext gc){
+    public void draw(GraphicsContext gc) {
         super.draw(gc);
-        if(content == null || content.isEmpty()) return;
+        if (content == null || content.isEmpty()) return;
 
-        int numChars = Math.max(1, content.length()); // prevent div by 0
+        int numChars = Math.max(1, content.length());
         double averageCharWidth = width / numChars;
         double fontSize = Math.min(height, averageCharWidth * 2);
         gc.setFont(new Font(fontSize));
 
-        gc.fillText(content, position.getX(), position.getY() + fontSize);
-        gc.strokeText(content, position.getX(), position.getY() + fontSize);
+        double[][] coords = getCoordinates();
+        double drawX = coords[0][0];
+        double drawY = coords[1][0];
+
+        gc.fillText(content, drawX, drawY + fontSize);
+        gc.strokeText(content, drawX, drawY + fontSize);
     }
+
 
     @Override
     public String toString() {

@@ -43,7 +43,7 @@ public class TextFeature implements NamedFeature {
     @Override
     public void onMouseClick(int x, int y) {
         if(selected){
-            //currentText = null; //Not allowing resizing
+            currentText = null;
             origin = null;
         }
     }
@@ -53,7 +53,6 @@ public class TextFeature implements NamedFeature {
         if (!selected || currentText == null || currentText.getContent() == null || currentText.getContent().isEmpty())
             return;
 
-        // Simulate press/init
         if (origin == null) {
             origin = new Vector3(x, y, 1);
             currentText.setOrigin(origin);
@@ -62,7 +61,6 @@ public class TextFeature implements NamedFeature {
             cv.addShape(currentText);
         }
 
-        // Rectangle-like drag behavior
         double topLeftX = Math.min(origin.getX(), x);
         double topLeftY = Math.min(origin.getY(), y);
         double width = Math.abs(x - origin.getX());
