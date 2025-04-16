@@ -23,6 +23,26 @@ public class Polygon extends Shape{
         this.vertices.add(start);
     }
 
+    public double[][] getCoordinates() {
+        Vector3[] points = vertices.toArray(new Vector3[0]);
+
+        Matrix3 toOrigin = TransformFactory.createTranslation(-getPosition().getX(), -getPosition().getY());
+        Matrix3 backToFormer = TransformFactory.createTranslation(getPosition().getX(), getPosition().getY());
+
+        if (transform != null) {
+            for (int i = 0; i < points.length; i++) {
+                points[i] = backToFormer.mult(transform.mult(toOrigin.mult(points[i])));
+            }
+        }
+
+        double[][] coordinates = new double[2][points.length];
+        for (int i = 0; i < points.length; i++) {
+            coordinates[0][i] = points[i].getX();
+            coordinates[1][i] = points[i].getY();
+        }
+        return coordinates;
+    }
+
     public void addVertex(Vector3 v) {
         vertices.add(v);
     }
@@ -41,22 +61,10 @@ public class Polygon extends Shape{
 
         super.draw(gc);
 
-        double[] xPoints = new double[vertices.size()];
-        double[] yPoints = new double[vertices.size()];
+        double[][] coords = getCoordinates();
 
-        Matrix3 toOrigin = TransformFactory.createTranslation(-getPosition().getX(), -getPosition().getY());
-        Matrix3 backToFormer = TransformFactory.createTranslation(getPosition().getX(), getPosition().getY());
-
-        for (int i = 0; i < vertices.size(); i++) {
-            Vector3 v = vertices.get(i);
-
-            if (transform != null) {
-                v = backToFormer.mult(transform.mult(toOrigin.mult(v)));
-            }
-
-            xPoints[i] = v.getX();
-            yPoints[i] = v.getY();
-        }
+        double[] xPoints = coords[0];
+        double[] yPoints = coords[1];
 
         gc.fillPolygon(xPoints, yPoints, xPoints.length);
         gc.strokePolygon(xPoints, yPoints, xPoints.length);

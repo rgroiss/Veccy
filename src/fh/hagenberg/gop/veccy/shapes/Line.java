@@ -1,4 +1,6 @@
 package fh.hagenberg.gop.veccy.shapes;
+import fh.hagenberg.gop.math.Matrix3;
+import fh.hagenberg.gop.math.TransformFactory;
 import fh.hagenberg.gop.math.Vector3;
 import fh.hagenberg.gop.veccy.shapes.Point;
 import at.fhhgb.mtd.gop.veccy.shapes.DrawableShape;
@@ -19,21 +21,6 @@ public class Line extends Shape {
         this.end = new Vector3(end);
     }
 
-    public Rectangle getBoundingBox() {
-        double minX = Math.min(getX(), end.getX());
-        double maxX = Math.max(getX(), end.getX());
-        double minY = Math.min(getY(), end.getY());
-        double maxY = Math.max(getY(), end.getY());
-
-        // Ensure at least MIN_SIZE width and height
-        if (minX == maxX) maxX += MIN_SIZE; // If vertical, add width
-        if (minY == maxY) maxY += MIN_SIZE; // If horizontal, add height
-
-        return new Rectangle(
-                new Vector3(minX, minY, 1.0),
-                new Vector3(maxX, maxY, 1.0)
-        );
-    }
 
     public Vector3 getEnd() {
         return end;
@@ -46,6 +33,26 @@ public class Line extends Shape {
 
     public void setEnd(Vector3 end) {
         this.end = new Vector3(end);
+    }
+
+    public double[][] getCoordinates() {
+        Vector3[] points = new Vector3[]{getPosition(), end};
+
+        Matrix3 toOrigin = TransformFactory.createTranslation(-getPosition().getX(), -getPosition().getY());
+        Matrix3 backToFormer = TransformFactory.createTranslation(getPosition().getX(), getPosition().getY());
+
+        if (transform != null) {
+            for (int i = 0; i < points.length; i++) {
+                points[i] = backToFormer.mult(transform.mult(toOrigin.mult(points[i])));
+            }
+        }
+
+        double[][] coords = new double[2][points.length];
+        for (int i = 0; i < points.length; i++) {
+            coords[0][i] = points[i].getX();
+            coords[1][i] = points[i].getY();
+        }
+        return coords;
     }
 
     @Override

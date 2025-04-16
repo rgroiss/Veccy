@@ -6,20 +6,21 @@ import at.fhhgb.mtd.gop.veccy.model.NamedFeature;
 import fh.hagenberg.gop.features.*;
 import fh.hagenberg.gop.math.Matrix3;
 import fh.hagenberg.gop.math.TransformFactory;
-import fh.hagenberg.gop.veccy.shapes.Circle;
-import fh.hagenberg.gop.veccy.shapes.Line;
-import fh.hagenberg.gop.veccy.shapes.Point;
-import fh.hagenberg.gop.veccy.shapes.Rectangle;
+import fh.hagenberg.gop.veccy.shapes.*;
 import javafx.application.Application;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
 //VM OPTION: --module-path lib --add-modules javafx.controls
 public class Veccy extends Application {
+
+    LinkedList<Shape> shapesList = new LinkedList<>();
 
     public static void main(String[] args) {
         launch();
@@ -30,7 +31,29 @@ public class Veccy extends Application {
         VeccyGUI veccyGUI = new VeccyGUI(stage);
         CanvasModel model = veccyGUI.getModel();
 
-        drawNestedShapes(model);
+        model.setCurrentlySelectedShapeHandler(index -> {
+            for(Shape s : shapesList) {
+                s.setSelected(false);
+            }
+            if(index >= 0 && index < shapesList.size()) {
+                shapesList.get(index).setSelected(true);
+            }
+        });
+
+        model.setShapeCreationHandler(drawableShape -> {
+            Shape shape = (Shape) drawableShape;
+            shapesList.add(shape);
+        });
+
+        model.setShapeDeletionHandler(index -> {
+            if(index >= 0 && index < shapesList.size()) {
+                Shape shape = shapesList.get(index);
+                model.removeShape(shape);
+                shapesList.remove(shape);
+            }
+        });
+
+        //drawNestedShapes(model);
         //drawDotsAndLines(model);
 
 

@@ -11,7 +11,6 @@ import java.util.List;
 
 public class PathFeature implements NamedFeature {
     private Path currentPath;
-    private final List<Line> previewLines = new ArrayList<>();
     private boolean selected;
     private CanvasModel cv;
 
@@ -36,53 +35,29 @@ public class PathFeature implements NamedFeature {
         selected = false;
         System.out.println("deselected Path");
 
-        if(currentPath != null && currentPath.isDrawable()){
-            cv.addShape(currentPath);
-        }else{
-            System.out.println("Path discarded - not enough points.");
-        }
         currentPath = null;
-        cv.getDrawableShapes().removeAll(previewLines);
-        previewLines.clear();
     }
 
     @Override
     public void onMouseClick(int x, int y) {
         if(!selected) return;
-
-        Vector3 point = new Vector3(x,y,1);
         System.out.println("clicked Path at " + x + ", " + y);
-
-        if(currentPath == null){
-            currentPath = new Path(point);
-            currentPath.setStrokeColor(cv.getCurrentStrokeColor());
-            currentPath.setFillColor(cv.getCurrentFillColor());
-        }else{
-            Line l = new Line(currentPath.getVertices().getLast(), new Vector3(x,y,1));
-            l.setStrokeColor(cv.getCurrentStrokeColor());
-            cv.addShape(l);
-            previewLines.add(l);
-            currentPath.addPoint(point);
-        }
+        currentPath = null;
     }
 
     @Override
     public void onMouseDrag(int x, int y) {
-        //optional
         if(!selected) return;
 
         Vector3 point = new Vector3(x,y,1);
-        System.out.println("clicked Path at " + x + ", " + y);
+        System.out.println("dragged Path at " + x + ", " + y);
 
         if(currentPath == null){
             currentPath = new Path(point);
             currentPath.setStrokeColor(cv.getCurrentStrokeColor());
             currentPath.setFillColor(cv.getCurrentFillColor());
+            cv.addShape(currentPath);
         }else{
-            Line l = new Line(currentPath.getVertices().getLast(), new Vector3(x,y,1));
-            l.setStrokeColor(cv.getCurrentStrokeColor());
-            cv.addShape(l);
-            previewLines.add(l);
             currentPath.addPoint(point);
         }
     }

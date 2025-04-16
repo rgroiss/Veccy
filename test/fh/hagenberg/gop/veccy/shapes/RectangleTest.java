@@ -32,9 +32,9 @@ public class RectangleTest {
                 new Vector3(4, 4, 1.0)
         );
 
-        Rectangle box1 = rect1.boundingBox();
-        Rectangle box2 = rect2.boundingBox();
-        Rectangle box3 = rect3.boundingBox();
+        Rectangle box1 = rect1.getBoundingBox();
+        Rectangle box2 = rect2.getBoundingBox();
+        Rectangle box3 = rect3.getBoundingBox();
 
         assertEquals(rect1.getA().getX(), box1.getA().getX(), 0.01);
         assertEquals(rect1.getA().getY(), box1.getA().getY(), 0.01);

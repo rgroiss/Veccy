@@ -72,7 +72,8 @@ public class Circle extends Shape {
         return "Circle{center=" + getPosition() + ", radius=" + radius + "}";
     }
 
-    private double[][] getCoordinates() {
+
+    public double[][] getCoordinates() {
         Vector3[] positions = new Vector3[256];
         double t = 0;
         double x = getX();

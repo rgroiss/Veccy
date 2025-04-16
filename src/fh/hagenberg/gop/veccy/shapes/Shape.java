@@ -11,6 +11,7 @@ public abstract class Shape implements DrawableShape {
     protected Matrix3 transform;
     protected Color fillColor = Color.WHITE;
     protected Color strokeColor = Color.WHITE;
+    private boolean selected = false;
 
     public Shape(int x, int y){
         this.position = new Vector3(x,y);
@@ -27,6 +28,16 @@ public abstract class Shape implements DrawableShape {
     public Shape(Point position){
         this(position.getX(), position.getY());
     }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public abstract double[][] getCoordinates();
 
     //retourniert Integer laut Angabe...
     public int getX(){
@@ -81,8 +92,37 @@ public abstract class Shape implements DrawableShape {
         this.transform = transform;
     }
 
+    public Rectangle getBoundingBox() {
+        double[][] cords = getCoordinates();
+
+        double minX = Double.MAX_VALUE;
+        double minY = Double.MAX_VALUE;
+        double maxX = -Double.MAX_VALUE;
+        double maxY = -Double.MAX_VALUE;
+
+        for (int i = 0; i < cords[0].length; i++) {
+            double x = cords[0][i];
+            double y = cords[1][i];
+
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+        }
+
+        return new Rectangle(new Vector3(minX, minY, 0), new Vector3(maxX, maxY, 0));
+    }
+
+
     @Override
     public void draw(GraphicsContext graphicsContext){
+        if(isSelected()){
+            Rectangle boundingBox = getBoundingBox();
+            graphicsContext.setStroke(Color.GREEN);
+            graphicsContext.strokeRect(boundingBox.getX(), boundingBox.getY(),
+                    boundingBox.getWidth(), boundingBox.getHeight());
+        }
+
         graphicsContext.setFill(this.fillColor);
         graphicsContext.setStroke(this.strokeColor);
     }

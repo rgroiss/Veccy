@@ -45,10 +45,6 @@ public class Rectangle extends Shape {
     }
     public void setWidth(double width) {b.setX(getPosition().getX() + width);}
 
-    public Rectangle boundingBox(){
-        return new Rectangle(getPosition(), b);
-    }
-
     public boolean isOverlapping(Rectangle other) {
         double thisLeft = Math.min(getPosition().getX(), b.getX());
         double thisRight = Math.max(getPosition().getX(), b.getX());
@@ -91,7 +87,7 @@ public class Rectangle extends Shape {
                 '}';
     }
 
-    private double[][] getCoordinates() {
+    public double[][] getCoordinates() {
         double x1 = getA().getX();
         double y1 = getA().getY();
         double x2 = getB().getX();

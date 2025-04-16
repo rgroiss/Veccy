@@ -17,6 +17,26 @@ public class Path extends Shape {
         vertices.add(start);
     }
 
+    public double[][] getCoordinates() {
+        Vector3[] points = vertices.toArray(new Vector3[0]);
+
+        Matrix3 toOrigin = TransformFactory.createTranslation(-getPosition().getX(), -getPosition().getY());
+        Matrix3 backToFormer = TransformFactory.createTranslation(getPosition().getX(), getPosition().getY());
+
+        if (transform != null) {
+            for (int i = 0; i < points.length; i++) {
+                points[i] = backToFormer.mult(transform.mult(toOrigin.mult(points[i])));
+            }
+        }
+
+        double[][] coords = new double[2][points.length];
+        for (int i = 0; i < points.length; i++) {
+            coords[0][i] = points[i].getX();
+            coords[1][i] = points[i].getY();
+        }
+        return coords;
+    }
+
     public void addPoint(Vector3 point) {
         vertices.add(point);
     }
