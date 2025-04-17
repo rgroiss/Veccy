@@ -45,6 +45,24 @@ public class Rectangle extends Shape {
     }
     public void setWidth(double width) {b.setX(getPosition().getX() + width);}
 
+    public Vector3 getCenter(){
+        double centerX = getPosition().getX() + getWidth() / 2;
+        double centerY = getPosition().getY() + getHeight() / 2;
+        return new Vector3(centerX, centerY, 1);
+    }
+
+    public Vector3 getTransformedCenter(){
+        Vector3 center = getCenter();
+        if(transform == null){
+            return center;
+        }
+
+        Matrix3 toOrigin = TransformFactory.createTranslation(-center.getX(), -center.getY());
+        Matrix3 backToCenter = TransformFactory.createTranslation(center.getX(), center.getY());
+
+        return backToCenter.mult(transform.mult(toOrigin.mult(center)));
+    }
+
     public boolean isOverlapping(Rectangle other) {
         double thisLeft = Math.min(getPosition().getX(), b.getX());
         double thisRight = Math.max(getPosition().getX(), b.getX());
@@ -104,8 +122,8 @@ public class Rectangle extends Shape {
         Vector3 p4 = new Vector3(minX, maxY, 1); // bottom-left
         Vector3[] positions = new Vector3[]{p1, p2, p3, p4};
 
-        Matrix3 toOrigin = TransformFactory.createTranslation((int)-(getA().getX()+getWidth()/2), (int)-(getA().getY()-getHeight()/2));
-        Matrix3 backToFormer = TransformFactory.createTranslation((int)(getA().getX()+getWidth()/2), (int)(getA().getY()-getHeight()/2));
+        Matrix3 toOrigin = TransformFactory.createTranslation((int)-(getA().getX()+getWidth()/2), (int)-(getA().getY()+getHeight()/2));
+        Matrix3 backToFormer = TransformFactory.createTranslation((int)(getA().getX()+getWidth()/2), (int)(getA().getY()+getHeight()/2));
 
         if(transform != null){
             for(int i = 0; i<positions.length; i++){

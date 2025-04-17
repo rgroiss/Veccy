@@ -15,6 +15,9 @@ public class TranslateFeature implements NamedFeature {
     boolean selected;
     CanvasModel cv;
     LinkedList<Shape> shapes;
+    boolean hasPreviousTransform = false;
+    Matrix3 previousTransform;
+    Vector3 mouseStart;
 
     public TranslateFeature(CanvasModel cv, LinkedList<Shape> shapes) {
         this.cv = cv;
@@ -32,6 +35,10 @@ public class TranslateFeature implements NamedFeature {
         for(Shape shape : shapes) {
             if(shape.isSelected()) {
                 currentShape = shape;
+                previousTransform = currentShape.getTransform();
+                if(previousTransform != null) {
+                    hasPreviousTransform = true;
+                }
             }
         }
     }
@@ -40,19 +47,32 @@ public class TranslateFeature implements NamedFeature {
     public void onDeselect() {
         selected = false;
         currentShape = null;
+        previousTransform = null;
+        hasPreviousTransform = false;
     }
 
     @Override
     public void onMouseClick(int x, int y) {
+        if(currentShape == null) return;
+        mouseStart = null;
+        previousTransform = currentShape.getTransform();
+        hasPreviousTransform = (previousTransform != null);
     }
 
     @Override
     public void onMouseDrag(int x, int y) {
         if(selected && currentShape != null) {
-            double dx = x - currentShape.getX();
-            double dy = y - currentShape.getY();
+            if(mouseStart == null) {
+                mouseStart = new Vector3(x, y);
+            }
+            double dx = x - mouseStart.getX();
+            double dy = y - mouseStart.getY();
             Matrix3 translate = TransformFactory.createTranslation(dx, dy);
-            currentShape.setTransform(translate);
+            if(hasPreviousTransform) {
+                currentShape.setTransform(translate.mult(previousTransform));
+            }else{
+                currentShape.setTransform(translate);
+            }
         }
     }
 }

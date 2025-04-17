@@ -38,8 +38,17 @@ public class Line extends Shape {
     public double[][] getCoordinates() {
         Vector3[] points = new Vector3[]{getPosition(), end};
 
-        Matrix3 toOrigin = TransformFactory.createTranslation(-getPosition().getX(), -getPosition().getY());
-        Matrix3 backToFormer = TransformFactory.createTranslation(getPosition().getX(), getPosition().getY());
+        double sumX = 0;
+        double sumY = 0;
+        for (Vector3 p : points) {
+            sumX += p.getX();
+            sumY += p.getY();
+        }
+        double centerX = sumX / points.length;
+        double centerY = sumY / points.length;
+
+        Matrix3 toOrigin = TransformFactory.createTranslation(-centerX, -centerY);
+        Matrix3 backToFormer = TransformFactory.createTranslation(centerX, centerY);
 
         if (transform != null) {
             for (int i = 0; i < points.length; i++) {

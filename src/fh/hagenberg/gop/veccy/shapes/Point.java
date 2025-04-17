@@ -50,7 +50,14 @@ public class Point extends Shape {
     @Override
     public void draw(GraphicsContext graphicsContext) {
         super.draw(graphicsContext);
-        graphicsContext.fillRect(getX(), getY(),3, 3);//set the size to 3 for visibility
+
+        double[][] coords = getCoordinates();
+        double x = coords[0][0];
+        double y = coords[1][0];
+        double width = coords[0][1] - coords[0][0];
+        double height = coords[1][1] - coords[1][0];
+
+        graphicsContext.fillRect(x, y, width, height);
     }
 
     @Override

@@ -20,8 +20,17 @@ public class Path extends Shape {
     public double[][] getCoordinates() {
         Vector3[] points = vertices.toArray(new Vector3[0]);
 
-        Matrix3 toOrigin = TransformFactory.createTranslation(-getPosition().getX(), -getPosition().getY());
-        Matrix3 backToFormer = TransformFactory.createTranslation(getPosition().getX(), getPosition().getY());
+        double sumX = 0;
+        double sumY = 0;
+        for (Vector3 p : points) {
+            sumX += p.getX();
+            sumY += p.getY();
+        }
+        double centerX = sumX / points.length;
+        double centerY = sumY / points.length;
+
+        Matrix3 toOrigin = TransformFactory.createTranslation(-centerX, -centerY);
+        Matrix3 backToFormer = TransformFactory.createTranslation(centerX, centerY);
 
         if (transform != null) {
             for (int i = 0; i < points.length; i++) {
@@ -29,12 +38,12 @@ public class Path extends Shape {
             }
         }
 
-        double[][] coords = new double[2][points.length];
+        double[][] coordinates = new double[2][points.length];
         for (int i = 0; i < points.length; i++) {
-            coords[0][i] = points[i].getX();
-            coords[1][i] = points[i].getY();
+            coordinates[0][i] = points[i].getX();
+            coordinates[1][i] = points[i].getY();
         }
-        return coords;
+        return coordinates;
     }
 
     public void addPoint(Vector3 point) {
@@ -55,21 +64,16 @@ public class Path extends Shape {
 
         super.draw(gc);
 
-        Matrix3 toOrigin = TransformFactory.createTranslation(-getPosition().getX(), -getPosition().getY());
-        Matrix3 backToFormer = TransformFactory.createTranslation(getPosition().getX(), getPosition().getY());
-
-        for (int i = 0; i < vertices.size() - 1; i++) {
-            Vector3 a = vertices.get(i);
-            Vector3 b = vertices.get(i + 1);
-
-            if (transform != null) {
-                a = backToFormer.mult(transform.mult(toOrigin.mult(a)));
-                b = backToFormer.mult(transform.mult(toOrigin.mult(b)));
-            }
-
-            gc.strokeLine(a.getX(), a.getY(), b.getX(), b.getY());
+        double[][] coords = getCoordinates();
+        for (int i = 0; i < coords[0].length - 1; i++) {
+            double x1 = coords[0][i];
+            double y1 = coords[1][i];
+            double x2 = coords[0][i + 1];
+            double y2 = coords[1][i + 1];
+            gc.strokeLine(x1, y1, x2, y2);
         }
     }
+
 
 
     @Override
