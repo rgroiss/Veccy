@@ -79,6 +79,8 @@ public class Veccy extends Application {
         model.addFeature(translate);
         NamedFeature rotate = new RotateFeature(model, shapesList);
         model.addFeature(rotate);
+        NamedFeature transform = new Transformfeature(model, shapesList);
+        model.addFeature(transform);
     }
 
     private void drawDotsAndLines(CanvasModel model) {

@@ -11,13 +11,13 @@ import fh.hagenberg.gop.veccy.shapes.Shape;
 import java.util.LinkedList;
 
 public class RotateFeature implements NamedFeature {
-    Shape currentShape;
-    Vector3 center;
-    boolean selected;
-    CanvasModel cv;
-    LinkedList<Shape> shapes;
-    boolean hasPreviousTransform = false;
-    Matrix3 previousTransform;
+    private Shape currentShape;
+    private Vector3 center;
+    private boolean selected;
+    private CanvasModel cv;
+    private LinkedList<Shape> shapes;
+    private boolean hasPreviousTransform = false;
+    private Matrix3 previousTransform;
 
     public RotateFeature(CanvasModel cv, LinkedList<Shape> shapes) {
         this.cv = cv;
@@ -40,6 +40,7 @@ public class RotateFeature implements NamedFeature {
                 if(previousTransform != null) {
                     hasPreviousTransform = true;
                 }
+                break;
             }
         }
     }

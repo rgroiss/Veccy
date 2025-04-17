@@ -11,13 +11,13 @@ import fh.hagenberg.gop.veccy.shapes.Shape;
 import java.util.LinkedList;
 
 public class TranslateFeature implements NamedFeature {
-    Shape currentShape;
-    boolean selected;
-    CanvasModel cv;
-    LinkedList<Shape> shapes;
-    boolean hasPreviousTransform = false;
-    Matrix3 previousTransform;
-    Vector3 mouseStart;
+    private Shape currentShape;
+    private boolean selected;
+    private CanvasModel cv;
+    private LinkedList<Shape> shapes;
+    private boolean hasPreviousTransform = false;
+    private Matrix3 previousTransform;
+    private Vector3 mouseStart;
 
     public TranslateFeature(CanvasModel cv, LinkedList<Shape> shapes) {
         this.cv = cv;
@@ -39,6 +39,7 @@ public class TranslateFeature implements NamedFeature {
                 if(previousTransform != null) {
                     hasPreviousTransform = true;
                 }
+                break;
             }
         }
     }
