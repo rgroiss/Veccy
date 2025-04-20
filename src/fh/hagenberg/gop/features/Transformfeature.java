@@ -47,7 +47,7 @@ public class Transformfeature implements NamedFeature {
             transform = TransformFactory.createVerticalMirroring().mult(transform);
         }
         //Rotation
-        transform = TransformFactory.createRotation(Math.toRadians(config.getRotation())).mult(transform);
+        transform = TransformFactory.createRotation(config.getRotation()).mult(transform);
 
         //Scaling
         transform = TransformFactory.createScaling(config.getScaleX(), config.getScaleY()).mult(transform);
