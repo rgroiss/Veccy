@@ -38,6 +38,7 @@ public class PathFeature implements NamedFeature {
         currentPath = null;
     }
 
+    //I chose to make it draw onDrag, so it's different from Line
     @Override
     public void onMouseClick(int x, int y) {
         if(!selected) return;

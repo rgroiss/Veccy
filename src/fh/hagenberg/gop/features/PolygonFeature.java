@@ -39,28 +39,38 @@ public class PolygonFeature implements NamedFeature {
         currentPolygon = null;
     }
 
+    //in order to finish the shape and start a new one, reselect the PolygonFeature button
     @Override
     public void onMouseClick(int x, int y) {
-        if(selected){
-            System.out.println("clicked Polygon at " + x + ", " + y);
-            currentPolygon = null;
+        if (!selected) return;
+
+        Vector3 point = new Vector3(x, y, 1);
+        System.out.println("clicked Polygon at " + x + ", " + y);
+
+        if (currentPolygon == null) {
+            currentPolygon = new Polygon(point);
+            currentPolygon.setFillColor(cv.getCurrentFillColor());
+            currentPolygon.setStrokeColor(cv.getCurrentStrokeColor());
+            cv.addShape(currentPolygon);
+        } else {
+            currentPolygon.addVertex(point);
         }
     }
 
     @Override
     public void onMouseDrag(int x, int y) {
-            if (!selected) return;
+        if (!selected) return;
 
-            Vector3 point = new Vector3(x, y, 1);
+        Vector3 point = new Vector3(x, y, 1);
         System.out.println("dragged Polygon at " + x + ", " + y);
 
-            if (currentPolygon == null) {
-                currentPolygon = new Polygon(point);
-                currentPolygon.setFillColor(cv.getCurrentFillColor());
-                currentPolygon.setStrokeColor(cv.getCurrentStrokeColor());
-                cv.addShape(currentPolygon);
-            } else {
-                currentPolygon.addVertex(point);
-            }
+        if (currentPolygon == null) {
+            currentPolygon = new Polygon(point);
+            currentPolygon.setFillColor(cv.getCurrentFillColor());
+            currentPolygon.setStrokeColor(cv.getCurrentStrokeColor());
+            cv.addShape(currentPolygon);
+        } else {
+            currentPolygon.addVertex(point);
+        }
     }
 }
