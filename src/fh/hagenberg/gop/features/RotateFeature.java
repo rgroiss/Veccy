@@ -67,7 +67,7 @@ public class RotateFeature implements NamedFeature {
             double angle = Math.atan2(G, A);
             Matrix3 rotation = TransformFactory.createRotation(angle);
             if(hasPreviousTransform) {
-                currentShape.setTransform(previousTransform.mult(rotation));
+                currentShape.setTransform(rotation.mult(previousTransform));
             }else{
                 currentShape.setTransform(rotation);
             }
