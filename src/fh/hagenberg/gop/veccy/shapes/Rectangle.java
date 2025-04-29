@@ -40,10 +40,8 @@ public class Rectangle extends Shape {
     public double getHeight() {
         return Math.abs( (b.getY() - getPosition().getY()));
     }
-    public void setHeight(double height) {b.setY(getPosition().getY() + height);}
     public double getWidth() {return Math.abs( (b.getX() - getPosition().getX()));
     }
-    public void setWidth(double width) {b.setX(getPosition().getX() + width);}
 
     public Vector3 getCenter(){
         double centerX = getPosition().getX() + getWidth() / 2;

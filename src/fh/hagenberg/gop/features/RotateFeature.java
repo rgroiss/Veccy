@@ -61,6 +61,7 @@ public class RotateFeature implements NamedFeature {
     @Override
     public void onMouseDrag(int x, int y) {
         if(selected && currentShape != null) {
+            center = currentShape.getBoundingBox().getCenter();
             double A = x - center.getX();
             double G = y - center.getY();
             double angle = Math.atan2(G, A);
