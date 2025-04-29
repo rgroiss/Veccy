@@ -32,9 +32,7 @@ public class Veccy extends Application {
         CanvasModel model = veccyGUI.getModel();
 
         model.setCurrentlySelectedShapeHandler(index -> {
-            for(Shape s : shapesList) {
-                s.setSelected(false);
-            }
+            shapesList.forEach(s-> s.setSelected(false));
             if(index >= 0 && index < shapesList.size()) {
                 shapesList.get(index).setSelected(true);
             }
