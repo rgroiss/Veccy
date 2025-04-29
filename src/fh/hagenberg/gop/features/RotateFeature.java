@@ -35,7 +35,7 @@ public class RotateFeature implements NamedFeature {
         for(Shape shape : shapes) {
             if(shape.isSelected()) {
                 currentShape = shape;
-                center = currentShape.getBoundingBox().getTransformedCenter();
+                center = currentShape.getBoundingBox().getCenter();
                 previousTransform = currentShape.getTransform();
                 if(previousTransform != null) {
                     hasPreviousTransform = true;
